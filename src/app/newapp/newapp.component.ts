@@ -8,7 +8,6 @@ import {HttpClient, HttpHeaders} from '@angular/common/http';
   styleUrls: ['./newapp.component.css']
 })
 export class NewappComponent implements OnInit {
-  link: null;
   httpOptions;
   body = {
     url: '',
@@ -28,15 +27,18 @@ export class NewappComponent implements OnInit {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
         'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Methods': 'HEAD, GET, POST, PUT, PATCH, DELETE',
+        'Access-Control-Allow-Headers': 'Origin, Content-Type, X-Auth-Token'
       })
     };
-    this.http.post('https://myshortlink.herokuapp.com/', this.body, this.httpOptions)
+    console.log(this.http.post('https://myshortlink.herokuapp.com/', this.body));
+    this.http.post('https://myshortlink.herokuapp.com/', this.body)
       .subscribe(
         user => this.popup(user),
         err => this.popup(err.error)
       );
   }
   popup(e) {
-    console.log(e);
+    console.log(e.data);
   }
 }
