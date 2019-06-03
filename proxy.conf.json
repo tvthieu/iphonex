@@ -1,0 +1,7 @@
+{
+  "/*": {
+    "target": "https://myshortlink.herokuapp.com",
+    "secure": false,
+    "changeOrigin": true
+  }
+}

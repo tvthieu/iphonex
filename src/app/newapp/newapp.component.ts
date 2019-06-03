@@ -13,6 +13,7 @@ export class NewappComponent implements OnInit {
     url: '',
     linkUrl: 'fb'
   };
+  linkshort: any;
   constructor(private http: HttpClient) { }
 
   ngOnInit() {
@@ -27,18 +28,39 @@ export class NewappComponent implements OnInit {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
         'Access-Control-Allow-Origin': '*',
-        'Access-Control-Allow-Methods': 'HEAD, GET, POST, PUT, PATCH, DELETE',
-        'Access-Control-Allow-Headers': 'Origin, Content-Type, X-Auth-Token'
+        // 'Access-Control-Allow-Methods': 'HEAD, GET, POST, PUT, PATCH, DELETE',
+        // 'Access-Control-Allow-Headers': 'Origin, Content-Type, X-Auth-Token'
       })
     };
-    console.log(this.http.post('https://myshortlink.herokuapp.com/', this.body));
-    this.http.post('https://myshortlink.herokuapp.com/', this.body)
+    console.log(this.http.post('https://myshortlink.herokuapp.com/', this.body, this.httpOptions));
+    this.http.post<any>('https://myshortlink.herokuapp.com/', this.body)
+      .subscribe(
+        user => this.popup(user),
+        err => this.popup(err.error)
+      );
+  }
+  getLink() {
+    this.httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        'Access-Control-Allow-Origin': '*',
+        // 'Access-Control-Allow-Methods': 'HEAD, GET, POST, PUT, PATCH, DELETE',
+        // 'Access-Control-Allow-Headers': 'Origin, Content-Type, X-Auth-Token'
+      })
+    };
+    console.log(this.http.post('https://myshortlink.herokuapp.com/', this.body, this.httpOptions));
+    this.http.post<any>('https://myshortlink.herokuapp.com/', this.body)
       .subscribe(
         user => this.popup(user),
         err => this.popup(err.error)
       );
   }
   popup(e) {
-    console.log(e.data);
+    console.log(e);
+    this.linkshort = 'https://result-link.herokuapp.com/getlink/' + e.code;
+  }
+  copy(inputElement) {
+    inputElement.select();
+    document.execCommand('copy');
   }
 }

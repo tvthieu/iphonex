@@ -1,5 +1,9 @@
 <form action="" #shortFrom="ngForm">
-  <input type="text" [(ngModel)]="body.url" name="link">
+  <input type="text" [(ngModel)]="body.url" name="link" style="width: 50%;margin-left: 200px;" placeholder="nhập link cần rút gọn">
   <button (click)="shortLink()">Rút gọn</button>
+  <div>
+    <input type="text" [(ngModel)]="linkshort" #ulinkshort name="linkshort" style="width: 50%;margin: 50px 0 0 200px;">
+    <button (click)="copy(ulinkshort)">Sao chép</button>
+  </div>
+
 </form>
-<h1>hhhh</h1>
